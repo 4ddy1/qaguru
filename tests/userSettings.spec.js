@@ -10,7 +10,7 @@ import {
 import 'dotenv/config';
 import { fakerRU as faker } from '@faker-js/faker';
 
-test.describe.serial('user settings', async () => {
+test.describe.serial('user settings (создание нового юзера и редактирование его настроек)', async () => {
     const userBuilder = new UserBuilder();
     const user = await userBuilder.build();
 
