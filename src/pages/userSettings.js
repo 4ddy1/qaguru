@@ -1,7 +1,7 @@
 export class UserSettings {
-    constructor(page){
+    constructor(page, username){
         this.page = page;
-        this.user = this.page.getByText('adil');
+        this.user = this.page.getByText(username);
         this.settingsLink = this.page.getByRole('link', { name: 'Settings' });
         this.passwordTextbox = this.page.getByRole('textbox', { name: 'Password' });
         this.passwordButton = this.page.getByRole('button', { name: 'Update Settings' });

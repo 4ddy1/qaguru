@@ -3,14 +3,16 @@ import {
     LoginPage,
     MainPage,
     ArticlePage,
-    UserSettings
 } from '../src/pages/index';
+import {
+    ArticleBuilder
+} from "../src/helpers/builder/index";
 import 'dotenv/config';
 import { fakerRU as faker } from '@faker-js/faker';
 
-test.describe.serial('qaGuru', () => {
+test.describe.serial('main', () => {
     test.beforeEach(async ({ page }) => {
-        const loginPage = new LoginPage(page)
+        const loginPage = new LoginPage(page);
 
         await loginPage.signIn(process.env.EMAIL, process.env.PASSWORD)
 
@@ -19,13 +21,10 @@ test.describe.serial('qaGuru', () => {
 
     test('publish article', async ({ page }) => {
         const mainPage = new MainPage(page)
+        const articleBuilder = new ArticleBuilder()
+        const article = await articleBuilder.build(); // сбилдить статью для публикации
 
-        const articleTitle = `adil - ${faker.lorem.sentence(2)}`
-        const articleDescription = faker.lorem.sentence(5);
-        const articleText = faker.lorem.paragraph(5);
-        const articleTag = faker.lorem.word();
-
-        await mainPage.publishArticle(articleTitle, articleDescription, articleText, articleTag)
+        await mainPage.publishArticle(article.title, article.description, article.text, article.tag)
 
     });
 
@@ -36,9 +35,4 @@ test.describe.serial('qaGuru', () => {
         await articlePage.commentArticle(articleComment);
     })
 
-    test ('updatePassword', async({page}) => {
-        const updatePassword = new UserSettings(page);
-
-        await updatePassword.updatePassword("newpassword123");
-    })
   });
