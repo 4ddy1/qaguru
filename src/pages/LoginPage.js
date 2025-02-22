@@ -1,7 +1,7 @@
 export class LoginPage{
     constructor(page){
         this.page = page;
-        this.LoginPageLink = this.page.goto("https://realworld.qa.guru/");
+        //this.LoginPageLink = this.page.goto("https://realworld.qa.guru/");
         this.loginLink = this.page.getByRole('link', { name: 'Login' }); // кнопка перехода на вход
         this.registerLink = this.page.getByRole('link', { name: 'Sign up' }); // кнопка перехода на регистрацию
         this.usernameTextBox = this.page.getByRole('textbox', { name: 'Your Name' }) // поле воода имени
@@ -11,7 +11,7 @@ export class LoginPage{
         this.signUpButton = this.page.getByRole('button', { name: 'Sign up' });
     }
     async signIn(email, password){
-        await this.LoginPageLink
+        await this.page.goto("https://realworld.qa.guru/");
         await this.loginLink.click();
         await this.emailTextBox.fill(email);
         await this.passwordTextBox.click();
@@ -20,7 +20,7 @@ export class LoginPage{
     }
 
     async signUp(name, email, password){
-        await this.LoginPageLink;
+        await this.page.goto("https://realworld.qa.guru/");
         await this.registerLink.click();
         await this.usernameTextBox.click();
         await this.usernameTextBox.fill(name);

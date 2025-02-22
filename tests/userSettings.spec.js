@@ -10,14 +10,14 @@ import {
 import 'dotenv/config';
 import { fakerRU as faker } from '@faker-js/faker';
 
-test.describe.serial('user settings (создание нового юзера и редактирование его настроек)', async () => {
+test.describe('user settings (создание нового юзера и редактирование его настроек)', async () => {
     const userBuilder = new UserBuilder();
     const user = await userBuilder.build();
 
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.signUp(user.name, user.email,user.password);
-        await expect(page).toHaveURL(process.env.MAIN_URL);
+        await page.waitForURL(process.env.MAIN_URL); // без этого тест не работает, стр не успевает загрузиться
     });
 
     test ('updatePassword', async({page}) => {

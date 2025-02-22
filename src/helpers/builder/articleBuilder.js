@@ -3,7 +3,7 @@ import {faker} from '@faker-js/faker';
 export class ArticleBuilder {
     constructor() {
         this.article = {
-            title: `adil - ${faker.lorem.sentence(2)}`,
+            title: `adil ${faker.lorem.sentence(2)} `,
             description: faker.lorem.sentence(5),
             text: faker.lorem.paragraph(5),
             tag: faker.lorem.word(),
@@ -11,7 +11,7 @@ export class ArticleBuilder {
     }
 
     async setTitle(title){
-        this.article.title = title || `adil - ${faker.lorem.sentence(2)}`;
+        this.article.title = title || `adil ${faker.lorem.sentence(2)}`;
         return this
     }
 
