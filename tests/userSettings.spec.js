@@ -21,9 +21,10 @@ test.describe('user settings (создание нового юзера и ред
     });
 
     test ('updatePassword', async({page}) => {
-        const mainPage = new MainPage(page);
+        const mainPage = new MainPage(page, user.name);
         const loginPage = new LoginPage(page);
         const updatePassword = new UserSettings(page, user.name);
+        const userLabel = await mainPage.getUserLabel(user.name);
 
         const newPassword = faker.internet.password()
         await updatePassword.updatePassword(newPassword); // установка нового пароля
@@ -31,7 +32,7 @@ test.describe('user settings (создание нового юзера и ред
 
         await mainPage.logout(user.name) // проверка входа с новым паролем
         await loginPage.signIn(user.email,user.password);
-        await expect(page).toHaveURL(process.env.MAIN_URL);
+        await expect(userLabel).toHaveText(user.name);
     });
 
 });

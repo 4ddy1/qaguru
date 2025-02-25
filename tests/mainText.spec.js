@@ -9,10 +9,9 @@ import {
 } from "../src/helpers/builder/index";
 import 'dotenv/config';
 import { fakerRU as faker } from '@faker-js/faker';
-import {kebabCase} from "lodash";
 import slugify from "slugify"; // штука для slugify (формат в который строка преобразовывается в url)
 
-test.describe.serial('main', () => {
+test.describe('main', () => {
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.signIn(process.env.EMAIL, process.env.PASSWORD)
@@ -42,8 +41,8 @@ test.describe.serial('main', () => {
         const articlePage = new ArticlePage(page);
         const articleComment = faker.lorem.sentence(5);
 
-        //await mainPage.publishArticle(article.title, article.description, article.text, article.tag) // опубликовать статью для комментирования
-
+        await mainPage.publishArticle(article.title, article.description, article.text, article.tag) // опубликовать статью для комментирования
+        await page.waitForNavigation();
         await articlePage.commentArticle(articleComment);
         await expect(articlePage.comment).toHaveText(articleComment);
     })

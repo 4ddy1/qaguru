@@ -8,7 +8,6 @@ export class MainPage{
         this.articleTagTextBox = this.page.getByRole('textbox', { name: 'Enter tags' });
         this.articlePiblishButton = this.page.getByRole('button', { name: 'Publish Article' });
         this.logoutButton = this.page.locator('a.dropdown-item').filter({ hasText: 'Logout' });// кнопка выпадающего меню
-
     }
     async publishArticle(articleTitle, testDescription, testText, testTag){
         await this.newArticleLink.click();
@@ -22,8 +21,13 @@ export class MainPage{
         await this.articleTagTextBox.fill(testTag);
         await this.articlePiblishButton.click();
     }
+
     async logout(username){
         await this.page.getByText(username).click();
         await this.logoutButton.click();
+    }
+
+    async getUserLabel(username){
+        return this.userLabel = this.page.getByText(username);
     }
 }
